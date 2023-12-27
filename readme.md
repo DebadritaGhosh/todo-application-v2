@@ -13,11 +13,13 @@ To get this server up and running locally, follow these steps:
 ## API Endpoints
 
 ### User Management
-- **POST /api/v1/register**: Register a new user.
-- **POST /api/v1/login**: Log in an existing user.
+- **POST /api/v1/auth/register**: Register a new user.
+- **POST /api/v1/auth/login**: Log in an existing user.
 
 ### TODO Operations
 - **POST /api/v1/todo**: Add a new TODO item.
+- **PUT /api/v1/todo/:todoId**: Edit a TODO item.
+- **DELETE /api/v1/todo/:todoId**: Delete a new TODO item.
 
 
 ## Technologies Used For Backend
