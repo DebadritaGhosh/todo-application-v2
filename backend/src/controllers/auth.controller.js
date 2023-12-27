@@ -26,7 +26,8 @@ export const registerController = async (req, res, next) => {
                 name: newUser.name,
                 email: newUser.email,
                 picture: newUser.picture,
-                access_token: access_token
+                access_token: access_token,
+                todos : newUser.todos
             }
         });
     } catch (error) {
@@ -58,7 +59,8 @@ export const loginController = async (req, res, next) => {
 				name: user.name,
 				email: user.email,
 				picture: user.picture,
-				access_token: access_token
+				access_token: access_token,
+                todos : user.todos
 			}
 		});
 
