@@ -12,12 +12,12 @@ export const createUser = async (userData) => {
 
 	const { name, email, picture, password } = userData;
 
-	// check if fields are empty
+	// Check if fields are empty
 	if (!name || !email || !password) {
 		throw createHttpError.BadRequest("Please fill all fields");
 	}
 
-	//check name length
+	// Check name length
 	if (!validator.isLength(name, {
 		min: 2,
 		max: 16
@@ -25,12 +25,12 @@ export const createUser = async (userData) => {
 		throw createHttpError.BadRequest("Please make sure your name in between 2 to 16 character");
 	}
 
-	//check if email is valid
+	// Check if email is valid
 	if (!validator.isEmail(email)) {
 		throw createHttpError.BadRequest("Please provide a valid email address.");
 	}
 
-	//check if user already exists
+	// Check if user already exists
 	const checkDB = await UserModel.findOne({ email });
 
 	if (checkDB) {
@@ -54,4 +54,26 @@ export const createUser = async (userData) => {
 	return user;
 
 
+}
+
+
+export const signUser = async (userData) => {
+
+	const { email, password } = userData;
+
+	const user = await UserModel.findOne({email : email.toLowerCase()}).lean();
+	
+	// Check if email exists
+	if(!user){
+		throw createHttpError.BadRequest("Invalid credentials.");
+	}
+
+	// Compare password
+	let passwordMatches = await bcrypt.compare(password, user.password);
+
+	if(!passwordMatches){
+		throw createHttpError.BadRequest("Invalid password.");
+	}
+
+	return user;
 }
