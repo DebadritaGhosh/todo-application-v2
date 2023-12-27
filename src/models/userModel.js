@@ -1,4 +1,3 @@
-// Importing libraries
 import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
@@ -19,6 +18,10 @@ const userSchema = mongoose.Schema({
 		type: String,
 		default: "https://res.cloudinary.com/dkd5jblv5/image/upload/v1675976806/Default_ProfilePicture_gjngnb.png"
 	},
+	status: {
+		type: String,
+		default: "Hey there ! I am using whatsapp"
+	},
 	password: {
 		type: String,
 		required: [true, "Please provide password"],
@@ -30,7 +33,6 @@ const userSchema = mongoose.Schema({
 	timestamps: true,
 });
 
-// Encrypting password before saving the password
 userSchema.pre('save', async function (next) {
 	try {
 		if (this.isNew) {

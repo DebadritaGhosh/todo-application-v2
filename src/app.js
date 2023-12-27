@@ -1,34 +1,21 @@
-// Importing libraries
-import cors from "cors";
+import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
-import express from "express";
-import compression from "compression";
-import cookieParser from "cookie-parser";
-import createHttpError from "http-errors";
-import fileUpload from "express-fileupload";
 import mongoSanitize from "express-mongo-sanitize";
-
-// Importing routers
+import cookieParser from "cookie-parser";
+import compression from "compression";
+import fileUpload from "express-fileupload";
+import cors from "cors";
+import createHttpError from "http-errors";
 import routes from "./routes/index.js";
 
 // Create express app
 const app = express();
 
-app.use((req, res, next) => {
-    console.log('Request Body TESTING :', req.body);
-    next();
-  });
-
 // Morgan
 if (process.env.NODE_ENV !== "production") {
 	app.use(morgan("dev"));
 }
-
-app.use((req, res, next) => {
-    console.log('Request Body:', req.body);
-    next();
-  });
 
 // Helmet
 app.use(helmet());

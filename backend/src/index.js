@@ -9,7 +9,7 @@ import logger from "./configs/logger.config.js";
 // Using dotenv
 dotenv.config();
 
-// Envirenment variables
+// Environment variables
 const { MONGO_URI } = process.env;
 const PORT = process.env.PORT || 8000;
 

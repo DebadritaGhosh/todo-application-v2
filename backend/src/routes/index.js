@@ -1,7 +1,7 @@
 // Import libraries
 import express from "express";
 
-// Import Routers
+// Import Routes
 import authRouter from "./auth.router.js"
 
 
