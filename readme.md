@@ -33,7 +33,27 @@ To get this server up and running locally, follow these steps:
 
 ### TODO Operations
 - **POST /api/v1/todo**: Add a new TODO item.
+  - Response Body:
+    ```json
+    {
+        "title": "Todo Title", (Required)
+        "body": "Todo body", (Required)
+        "priority": "Todo priority", (Required)
+        "due_date": "Todo due date", (Required)
+        "status": "status" (Required)
+    }
+    ```
 - **PUT /api/v1/todo/:todoId**: Edit a TODO item.
+  - Response Body:
+    ```json
+    {
+        "title": "Todo Title", (optional)
+        "body": "Todo body", (optional)
+        "priority": "Todo priority", (optional)
+        "due_date": "Todo due date", (optional)
+        "status": "status" (optional)
+    }
+    ```
 - **DELETE /api/v1/todo/:todoId**: Delete a new TODO item.
 
 ### User Management
