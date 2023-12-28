@@ -8,7 +8,7 @@ To get this server up and running locally, follow these steps:
 
 1. **Installation:** Clone this repository and run `npm install` to install dependencies.
 2. **Environment Variables:** Create a `.env` file and set up necessary variables (e.g., database credentials, secret keys).
-3. **Start Server:** Execute `npm start` to start the server.
+3. **Start the development server:** Execute `npm run dev` to start the server.
 
 ## API Endpoints
 
