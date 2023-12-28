@@ -14,7 +14,22 @@ To get this server up and running locally, follow these steps:
 
 ### Auth Management
 - **POST /api/v1/auth/register**: Register a new user.
+  - Response Body:
+    ```json
+    {
+        "name": "Your Name", (Required)
+        "email": "youremail@example.com", (Required)
+        "picture": "Your picture", (optional)
+        "password" : "your password" (Required)
+    }
+    ```
 - **POST /api/v1/auth/login**: Log in an existing user.
+  - Response Body:
+    ```json
+    {
+        "email": "youremail@example.com", (Required)
+        "password" : "your password" (Required)
+    }
 
 ### TODO Operations
 - **POST /api/v1/todo**: Add a new TODO item.
