@@ -1,5 +1,6 @@
-// Importing models
+// Importing libraries
 import createHttpError from "http-errors";
+// Importing models
 import { UserModel, TodoModel } from "../models/index.js";
 
 

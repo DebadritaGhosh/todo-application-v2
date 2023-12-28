@@ -5,8 +5,6 @@ import { createUser,signUser } from "../services/auth.service.js";
 // Register controller
 export const registerController = async (req, res, next) => {
     try {
-        // console.log("REQUEST BODY ===========> ",req);
-        console.log('Requested URL: ======================> ',req.originalUrl);
         const { name, email, picture, password } = req.body;
         const newUser = await createUser({ name, email, picture, password });
         const access_token = await generateToken({ userId: newUser._id }, "1d", process.env.ACCESS_TOKEN_SECRET);

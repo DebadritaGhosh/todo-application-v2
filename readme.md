@@ -12,7 +12,7 @@ To get this server up and running locally, follow these steps:
 
 ## API Endpoints
 
-### User Management
+### Auth Management
 - **POST /api/v1/auth/register**: Register a new user.
 - **POST /api/v1/auth/login**: Log in an existing user.
 
@@ -20,6 +20,18 @@ To get this server up and running locally, follow these steps:
 - **POST /api/v1/todo**: Add a new TODO item.
 - **PUT /api/v1/todo/:todoId**: Edit a TODO item.
 - **DELETE /api/v1/todo/:todoId**: Delete a new TODO item.
+
+### User Management
+- **PATCH /api/v1/user/**: Update user details.
+  - Response Body:
+    ```json
+    {
+        "name": "Updated Name", (optional)
+        "email": "updated@example.com", (optional)
+        "picture": "updated picture", (optional)
+        "password" : "updated password" (optional)
+    }
+    ```
 
 ## Technologies Used For Backend
 
