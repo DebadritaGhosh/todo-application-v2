@@ -14,15 +14,16 @@ export const updateProfileController = async (req, res, next) => {
 			password: password
 		});
 
-		res.json({
-			message: "Profile updated successfully.",
-			user: {
+		res.status(204).json({
+            message: "Update profile success.",
+            status: "ok",
+            data: {
 				_id: updatedUserData._id,
 				name: updatedUserData.name,
 				email: updatedUserData.email,
 				picture: updatedUserData.picture,
 			}
-		});
+        });
 
 	} catch (error) {
 		next(error)

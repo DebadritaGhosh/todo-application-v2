@@ -1,20 +1,25 @@
 // Importing services
 import { createTodo,editTodo,deleteTodo } from "../services/todo.service.js";
 
-// Register controller
+// Add todo controller
 export const addTodoController = async (req, res, next) => {
     try {
 		const newTodo = await createTodo({
 			user_id : req.user.userId,
 			...req.body
 		});
-		res.json(newTodo);
+
+		res.status(201).json({
+            message: "Add todo success.",
+            status: "ok",
+            data: newTodo
+        })
     } catch (error) {
         next(error);
     }
 }
 
-// Register controller
+// Edit todo controller
 export const editTodoController = async (req, res, next) => {
     try {
 		const updatedTodo = await editTodo({
@@ -22,13 +27,17 @@ export const editTodoController = async (req, res, next) => {
 			todo_id : req.params.todoId,
 			...req.body
 		});
-		res.json(updatedTodo);
+		res.status(201).json({
+            message: "Edit todo success.",
+            status: "ok",
+            data: updatedTodo
+        });
     } catch (error) {
         next(error);
     }
 }
 
-// Register controller
+// Delete todo controller
 export const deleteTodoController = async (req, res, next) => {
 	try {
 		const deletedTodo = await deleteTodo({
@@ -36,13 +45,11 @@ export const deleteTodoController = async (req, res, next) => {
 			todo_id : req.params.todoId,
 		});
 
-		res.json(
-			{
-				status : "ok",
-				message: "todo deleted successfully",
-				...deletedTodo,
-			}
-		);
+		res.status(204).json({
+            message: "Delete todo success.",
+            status: "ok",
+            data: deletedTodo
+        });
     } catch (error) {
         next(error);
     }

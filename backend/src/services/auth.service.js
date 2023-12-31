@@ -61,7 +61,8 @@ export const signUser = async (userData) => {
 
 	const { email, password } = userData;
 
-	const user = await UserModel.findOne({email : email.toLowerCase()}).lean();
+	const user = await UserModel.findOne({email : email.toLowerCase()}).populate('todos');
+	// .exec().lean()
 	
 	// Check if email exists
 	if(!user){
