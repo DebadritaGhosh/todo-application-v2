@@ -1,51 +1,43 @@
 // Importing libraries
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { useForm } from 'react-hook-form';
+import { Link as MuiLink } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box, Paper, Avatar, Checkbox, Typography, CssBaseline, FormControlLabel } from '@mui/material';
+import {yupResolver} from "@hookform/resolvers/yup";
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://github.com/DebadritaGhosh/todo-application-v2">
-        stackexplorer
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// Importing components
+import Layout from '../../components/Layout/Layout';
+import TextInput from '../../components/TextInput/TextInput';
+import Copyright from '../../components/Copyright/Copyright';
+import CustomButton from '../../components/Button/CustomButton';
+import GridContainer from '../../components/GridContainer/GridContainer';
 
-// TODO remove, this demo shouldn't need to reset the theme.
+// Importing utils
+import { signInSchema } from '../../utils/validation';
 
-const defaultTheme = createTheme();
 
 const LoginPage = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signInSchema)
+  });
 
+  const onSubmit = (data) => {
+
+  }
+
+  
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+    <Layout>
+      <GridContainer container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <Grid
+        <GridContainer
           item
           xs={false}
           sm={4}
@@ -59,14 +51,14 @@ const LoginPage = () => {
             backgroundPosition: 'center',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <GridContainer item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,
               mx: 4,
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -75,57 +67,75 @@ const LoginPage = () => {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField
+            <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+
+              {/* Email */}
+              <TextInput
                 margin="normal"
-                required
-                fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
+                InputHandler={register("email")}
+                error={errors?.email?.message}
               />
-              <TextField
+
+              {/* Password */}
+              <TextInput
+                autoFocus={false}
                 margin="normal"
-                required
-                fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                InputHandler={register("password")}
+                error={errors?.email?.password}
               />
+
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Button
+
+              {/* Button */}
+              <CustomButton
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
+              </CustomButton>
+
+              <GridContainer container>
+                <GridContainer item xs sx={{ marginRight: '10px' }}>
+                  <MuiLink
+                    component={RouterLink}
+                    to="/register"
+                    color="primary"
+                    underline="hover"
+                  >
                     Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
+                  </MuiLink>
+                </GridContainer>
+                <GridContainer item>
+                  <MuiLink
+                    component={RouterLink}
+                    to="/register"
+                    color="primary"
+                    underline="hover"
+                  >
                     {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
+                  </MuiLink>
+                </GridContainer>
+              </GridContainer>
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
-        </Grid>
-      </Grid>
-    </ThemeProvider>
+        </GridContainer>
+      </GridContainer>
+    </Layout>
   );
 }
 

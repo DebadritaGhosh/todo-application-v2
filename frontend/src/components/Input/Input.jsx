@@ -1,14 +1,16 @@
+// Importing libraries
 import React from 'react'
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
 function Input(props) {
+	const { InputHandler, ...otherProps } = props;
+
 	return (
-		<Grid item xs={12}>
 			<TextField
-				{...props}
+				{...otherProps}
+				{...InputHandler}
 			/>
-		</Grid>
 	)
 }
 

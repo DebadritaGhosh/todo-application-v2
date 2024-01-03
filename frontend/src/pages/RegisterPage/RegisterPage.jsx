@@ -1,45 +1,34 @@
+// Importing libraries
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
-import Container from '@mui/material/Container';
-import Input from '../../components/Input/Input';
-import Typography from '@mui/material/Typography';
-import CssBaseline from '@mui/material/CssBaseline';
+import { useForm } from 'react-hook-form';
+import { Link as RouterLink } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Box, Avatar, Container, Typography, CssBaseline, Link as MuiLink } from '@mui/material';
+
+// Importing components
+import Layout from '../../components/Layout/Layout';
+import Copyright from '../../components/Copyright/Copyright';
 import CustomButton from '../../components/Button/CustomButton';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import GridContainer from '../../components/GridContainer/GridContainer';
+import TextInput from '../../components/TextInput/TextInput';
 
-function Copyright(props) {
-	return (
-		<Typography variant="body2" color="text.secondary" align="center" {...props}>
-			{'Copyright © '}
-			<Link color="inherit" href="https://github.com/DebadritaGhosh/todo-application-v2">
-				stackexplorer
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
-	);
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme();
+// const defaultTheme = createTheme();
 
 const RegisterPage = () => {
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		console.log({
-			email: data.get('email'),
-			password: data.get('password'),
-		});
-	};
+	const {
+		register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+	} = useForm();
+	const onSubmit = (data) => console.log(data);
+
+	console.log("values", watch());
+	console.log("errors", errors);
+
 
 	return (
-		<ThemeProvider theme={defaultTheme}>
+		<Layout>
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
 				<Box
@@ -56,69 +45,80 @@ const RegisterPage = () => {
 					<Typography component="h1" variant="h5">
 						Sign up
 					</Typography>
-					<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-						<Grid container spacing={2}>
-							<Grid item xs={12} sm={6}>
-								<Input
-									autoComplete="given-name"
-									name="firstName"
-									required
-									fullWidth
-									id="firstName"
-									label="First Name"
-									autoFocus
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<Input
-									required
-									fullWidth
-									id="lastName"
-									label="Last Name"
-									name="lastName"
-									autoComplete="family-name"
-								/>
-							</Grid>
+					<Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
+						<GridContainer container spacing={2}>
 
-							<Input
-								required
-								fullWidth
-								id="email"
-								label="Email Address"
-								name="email"
-								autoComplete="email"
+							{/* FirstName */}
+							<TextInput
+								xs={12}
+								sm={6}
+								id="firstName"
+								name="firstName"
+								label="First Name"
+								autoComplete="given-name"
+								InputHandler={register("firstName", { required: true })}
 							/>
-							<Input
-								required
-								fullWidth
+
+							{/* LastName */}
+							<TextInput
+								xs={12}
+								sm={6}
+								id="lastName"
+								name="lastName"
+								label="Last Name"
+								autoFocus={false}
+								autoComplete="family-name"
+								InputHandler={register("lastName", { required: true })}
+							/>
+
+							{/* Email */}
+							<TextInput
+								id="email"
+								name="email"
+								label="Email Address"
+								autoFocus={false}
+								autoComplete="email"
+								InputHandler={register("email", { required: true })}
+							/>
+
+							{/* Password */}
+							<TextInput
+								id="password"
 								name="password"
 								label="Password"
 								type="password"
-								id="password"
+								autoFocus={false}
 								autoComplete="new-password"
+								InputHandler={register("password", { required: true })}
 							/>
-						</Grid>
+
+						</GridContainer>
+
+						{/* Button component */}
 						<CustomButton
 							type="submit"
-							fullWidth={true}
+							fullWidth
 							variant="contained"
-							sx={{mt: 3, mb: 2 }}
+							sx={{ mt: 3, mb: 2 }}
 						>
 							Sign Up
 						</CustomButton>
 
-						<Grid container justifyContent="flex-end">
-							<Grid item>
-								<Link href="#" variant="body2">
-									Already have an account? Sign in
-								</Link>
-							</Grid>
-						</Grid>
+						<GridContainer container justifyContent="center">
+							<MuiLink
+								component={RouterLink}
+								to="/login"
+								color="primary"
+								underline="hover"
+							>
+								Already have an account? Sign in
+							</MuiLink>
+						</GridContainer>
 					</Box>
 				</Box>
 				<Copyright sx={{ mt: 5 }} />
 			</Container>
-		</ThemeProvider>
+		</Layout>
 	);
 }
 
