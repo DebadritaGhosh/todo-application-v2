@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
@@ -14,6 +14,14 @@ const initialState = {
 		refreshToken: ""
 	},
 }
+
+export const loginUser = createAsyncThunk('auth/register',async(values,{rejectWithValue}) => {
+	try {
+		const {data} = await console.log("TEST");
+	} catch (error) {
+		return rejectWithValue(error.response.data.error.message);
+	}
+});
 
 export const userSlice = createSlice({
 	name: "user",
@@ -34,8 +42,6 @@ export const userSlice = createSlice({
 		}
 	}
 })
-
-
 
 
 export const {logout} = userSlice.actions;

@@ -1,10 +1,9 @@
 // Importing libraries
 import createHttpError from "http-errors";
 import validator from "validator";
-import bcrypt from "bcrypt";
 
 // Importing models
-import { UserModel, TodoModel } from "../models/index.js";
+import { UserModel } from "../models/index.js";
 
 
 export const updateProfile = async (user_id, userDetails) => {
@@ -59,4 +58,11 @@ export const updateProfile = async (user_id, userDetails) => {
 	const updatedUserData = await user.save();
 
 	return updatedUserData;
+}
+
+
+export const findUser = async (userId) => {
+	const user = await UserModel.findById(userId);
+	if (!user) throw createHttpError.BadRequest("Please fill all fields.");
+	return user;
 }

@@ -1,5 +1,5 @@
 // Importing utils
-import { sign } from "../utils/token.util.js";
+import { sign, verify } from "../utils/token.util.js";
 
 export const generateToken= async (payload,expiresIn,secret) => {
 	let token = await sign(payload,expiresIn,secret);
