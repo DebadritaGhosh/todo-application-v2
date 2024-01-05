@@ -1,8 +1,13 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../redux/userSlice';
 
 function HomePage() {
+  const dispatch = useDispatch();
+
+
   return (
-	<div>HomePage</div>
+	<div><button onClick={() => dispatch(logout())}>Logout</button></div>
   )
 }
 

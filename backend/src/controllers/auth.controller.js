@@ -46,11 +46,11 @@ export const loginController = async (req, res, next) => {
         const access_token = await generateToken({ userId: user._id }, "1d", process.env.ACCESS_TOKEN_SECRET);
         const refresh_token = await generateToken({ userId: user._id }, "30d", process.env.REFRESH_TOKEN_SECRET);
 
-        res.cookie('refreshtoken', refresh_token, {
-            httpOnly: true,
-            path: "/api/v1/auth/refreshtoken",
-            maxAge: 30 * 24 * 60 * 60 * 1000,
-        });
+        // res.cookie('refreshtoken', refresh_token, {
+        //     httpOnly: true,
+        //     path: "/api/v1/auth/refreshtoken",
+        //     maxAge: 30 * 24 * 60 * 60 * 1000,
+        // });
 
 
         res.status(200).json({

@@ -2,10 +2,12 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link as MuiLink } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Box, Paper, Avatar, Checkbox, Typography, CssBaseline, FormControlLabel } from '@mui/material';
-import {yupResolver} from "@hookform/resolvers/yup";
+import { loginUser } from '../../redux/userSlice';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch, useSelector } from 'react-redux';
 
 // Importing components
 import Layout from '../../components/Layout/Layout';
@@ -19,6 +21,9 @@ import { signInSchema } from '../../utils/validation';
 
 
 const LoginPage = () => {
+  const { status, error, user, isAuthenticated } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -28,11 +33,15 @@ const LoginPage = () => {
     resolver: yupResolver(signInSchema)
   });
 
-  const onSubmit = (data) => {
-
+  const onSubmit = async(data) => {
+    const response = await dispatch((loginUser({ ...data })));
+    console.log("RESPONSE !!!!!!!!!!!!!!!!!!!!> ",response );
+    // if(response.payload.status = "ok"){
+    //   navigate("/");
+    // }
   }
 
-  
+
   return (
     <Layout>
       <GridContainer container component="main" sx={{ height: '100vh' }}>
